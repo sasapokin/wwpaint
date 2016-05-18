@@ -42,10 +42,10 @@
 
     //desc("Ensure correct version of Node is present");
     task("node", [], function(){
-        var NODE_VERSION = "v0.8.4\n";
+        var NODE_VERSION = "v0.8.4";
 
         sh("node --version", function(stdout){
-            if(stdout >= NODE_VERSION) fail("Incorect node version. Expected " + NODE_VERSION);
+            if(stdout.trim() >= NODE_VERSION) fail("Incorect node version. Expected " + NODE_VERSION);
             complete();
         });
     }, {async: true});
