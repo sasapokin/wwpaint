@@ -1,28 +1,25 @@
 /*  */
 "use strict";
 
-exports.start =  function(){
-    var http = require("http");
+var http = require("http");
+var server;
 
-    var server = http.createServer();
+exports.start =  function(){
+    console.log("start called");
+    server = http.createServer();
+    console.log("server called");
 
     server.on("request", function(request, response){
-        console.log("Received request");
-
-        var body = "<html><head><title>Node HTTP Spike</title></head>"+
-            "<body><p>This is a spike of Node's HTTP server</p></body></html>";
-
-        // The following two approaches are equivalent:
-        // The verbose way
-        // response.statusCode = 200;
-        // response.write(body);
-        // response.end();
-
-        //The concise way ...
-        response.end(body);
+        console.log("request called");
+        response.end();
     });
+    console.log("'on' called");
 
     server.listen(8080);
+    console.log("listen called");
+};
 
-    console.log("Server started");
+exports.stop = function(callback){
+    console.log("stop called");
+    server.close(callback);
 };
