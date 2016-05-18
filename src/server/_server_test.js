@@ -4,6 +4,11 @@
 var server = require("./server.js");
 var http = require("http");
 
+exports.setUp = function(done){
+    server.start(8080);
+    done();
+};
+
 exports.tearDown = function(done){
     server.stop(function(){
         done();
@@ -14,7 +19,6 @@ exports.tearDown = function(done){
 //TODO: test-drive stop()callback
 
 exports.test_serverReturnsHelloWord = function(test){
-    server.start(8080);
     var request = http.get("http://localhost:8080");
     request.on("response",function(response){
         var receivedData = false;
@@ -30,5 +34,11 @@ exports.test_serverReturnsHelloWord = function(test){
             test.done();
         });
 
+    });
+};
+
+exports.test_serverRunsCallbackWhenStopCompletes = function(test){
+    server.stop(function(){
+        test.done();
     });
 };
